@@ -59,80 +59,80 @@ import com.example.androiddevchallenge.ui.sample.Sample
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
 class MainActivity : AppCompatActivity() {
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContent {
-      MyTheme {
-        DogListScreen()
-      }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            MyTheme {
+                DogListScreen()
+            }
+        }
     }
-  }
 }
 
 @OptIn(ExperimentalAnimationApi::class, ExperimentalFoundationApi::class)
 @Composable
 fun DogListScreen() {
-  val dogsToDisplay = Sample.dogs
+    val dogsToDisplay = Sample.dogs
 
-  Scaffold {
-    Surface(color = MaterialTheme.colors.background) {
-      val gridState = rememberLazyListState()
-      val alpha = listScrollStateToAlpha(gridState)
-      var height by remember { mutableStateOf(Dp.Unspecified) }
+    Scaffold {
+        Surface(color = MaterialTheme.colors.background) {
+            val gridState = rememberLazyListState()
+            val alpha = listScrollStateToAlpha(gridState)
+            var height by remember { mutableStateOf(Dp.Unspecified) }
 
-      MainHeader(
-          modifier = Modifier
-            .onGloballyPositioned {
-              height = with(LocalDensity.current) { it.size.height / density }.dp
+            MainHeader(
+                modifier = Modifier
+                    .onGloballyPositioned {
+                        height = with(LocalDensity.current) { it.size.height / density }.dp
+                    }
+                    .alpha(alpha)
+            )
+
+            AnimatedVisibility(
+                visible = height != Dp.Unspecified, enter = fadeIn(), initiallyVisible = false
+            ) {
+                PetCardGrid(gridState, height, dogsToDisplay)
             }
-            .alpha(alpha)
-      )
-
-      AnimatedVisibility(
-          visible = height != Dp.Unspecified, enter = fadeIn(), initiallyVisible = false
-      ) {
-        PetCardGrid(gridState, height, dogsToDisplay)
-      }
+        }
     }
-  }
 }
 
 @Composable
 private fun listScrollStateToAlpha(gridState: LazyListState) =
-  remember(gridState.firstVisibleItemScrollOffset, gridState.firstVisibleItemIndex) {
-    if (gridState.firstVisibleItemIndex > 0) {
-      0f
-    } else {
-      1f - (gridState.firstVisibleItemScrollOffset / 100f) / 2
+    remember(gridState.firstVisibleItemScrollOffset, gridState.firstVisibleItemIndex) {
+        if (gridState.firstVisibleItemIndex > 0) {
+            0f
+        } else {
+            1f - (gridState.firstVisibleItemScrollOffset / 100f) / 2
+        }
     }
-  }
 
 @Composable
 private fun MainHeader(
     modifier: Modifier = Modifier
 ) {
-  Surface(
-      modifier = modifier,
-      color = MaterialTheme.colors.primary
-  ) {
-    Column(
-        modifier
-          .fillMaxWidth()
-          .padding(start = 8.dp)
+    Surface(
+        modifier = modifier,
+        color = MaterialTheme.colors.primary
     ) {
-      Spacer(modifier = Modifier.height(8.dp))
-      Text(
-          text = stringResource(string.mainlist_app_title), style = MaterialTheme.typography.h4,
-      )
-      CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-        Text(
-            text = stringResource(string.main_list_app_subtitle),
-            style = MaterialTheme.typography.subtitle2,
-        )
-      }
-      Spacer(modifier = Modifier.height(8.dp))
+        Column(
+            modifier
+                .fillMaxWidth()
+                .padding(start = 8.dp)
+        ) {
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = stringResource(string.mainlist_app_title), style = MaterialTheme.typography.h4,
+            )
+            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                Text(
+                    text = stringResource(string.main_list_app_subtitle),
+                    style = MaterialTheme.typography.subtitle2,
+                )
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+        }
     }
-  }
 }
 
 @OptIn(ExperimentalAnimationApi::class, ExperimentalFoundationApi::class)
@@ -142,44 +142,44 @@ private fun PetCardGrid(
     firstRowOffset: Dp,
     items: List<AdoptableDog>
 ) {
-  LazyVerticalGrid(state = gridState, cells = Fixed(2)) {
-    items(count = items.size) { index ->
-      val dog = items[index]
-      val modifier = if (index < 2) {
-        Modifier.padding(top = firstRowOffset + 8.dp)
-      } else {
-        Modifier
-      }
-      PetCard(
-          modifier = modifier,
-          imageData = "$BASE_URL_DOG_IMAGES${dog.id}",
-          title = dog.name,
-          subtitle = "${dog.ageString} - ${dog.sex}"
-      )
+    LazyVerticalGrid(state = gridState, cells = Fixed(2)) {
+        items(count = items.size) { index ->
+            val dog = items[index]
+            val modifier = if (index < 2) {
+                Modifier.padding(top = firstRowOffset + 8.dp)
+            } else {
+                Modifier
+            }
+            PetCard(
+                modifier = modifier,
+                imageData = "$BASE_URL_DOG_IMAGES${dog.id}",
+                title = dog.name,
+                subtitle = "${dog.ageString} - ${dog.sex}"
+            )
+        }
     }
-  }
 }
 
 @Preview
 @Composable
 fun PetCellPreview() {
-  MyTheme {
-    PetCard()
-  }
+    MyTheme {
+        PetCard()
+    }
 }
 
 @Preview
 @Composable
 fun LightPreview() {
-  MyTheme {
-    DogListScreen()
-  }
+    MyTheme {
+        DogListScreen()
+    }
 }
 
 @Preview
 @Composable
 fun DarkPreview() {
-  MyTheme(darkTheme = true) {
-    DogListScreen()
-  }
+    MyTheme(darkTheme = true) {
+        DogListScreen()
+    }
 }

@@ -1,3 +1,18 @@
+/*
+ * Copyright 2021 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.example.androiddevchallenge.ui.components
 
 import androidx.compose.foundation.background
@@ -39,63 +54,62 @@ fun PetCard(
     subtitle: String = "Lorem Ipsum",
     onClick: () -> Unit = {}
 ) {
-  val imageDataRemember = remember { imageData }
-  Card(
-      modifier = modifier
-        .padding(8.dp)
-        .aspectRatio(1f)
-        .drawColoredShadow(MaterialTheme.colors.primary)
-        .clickable { onClick() },
-      backgroundColor = MaterialTheme.colors.primary,
-      shape = MaterialTheme.shapes.medium, elevation = 0.dp,
-  ) {
-    Box(contentAlignment = Alignment.BottomStart) {
-      CoilImage(
-          data = imageDataRemember,
-          contentDescription = "",
-          contentScale = ContentScale.Crop,
-          fadeIn = true,
-      )
-      PetInfoCardForeground(title, subtitle)
+    val imageDataRemember = remember { imageData }
+    Card(
+        modifier = modifier
+            .padding(8.dp)
+            .aspectRatio(1f)
+            .drawColoredShadow(MaterialTheme.colors.primary)
+            .clickable { onClick() },
+        backgroundColor = MaterialTheme.colors.primary,
+        shape = MaterialTheme.shapes.medium, elevation = 0.dp,
+    ) {
+        Box(contentAlignment = Alignment.BottomStart) {
+            CoilImage(
+                data = imageDataRemember,
+                contentDescription = "",
+                contentScale = ContentScale.Crop,
+                fadeIn = true,
+            )
+            PetInfoCardForeground(title, subtitle)
+        }
     }
-  }
 }
 
 @Composable
 private fun PetInfoCardForeground(title: String, subtitle: String) {
-  Column(
-      modifier = Modifier
-        .fillMaxSize()
-        .background(
-            Brush.verticalGradient(
-                0f to Color.Transparent,
-                0.5f to Color.Transparent,
-                1f to Color(0f, 0f, 0f, 0.8f)
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                Brush.verticalGradient(
+                    0f to Color.Transparent,
+                    0.5f to Color.Transparent,
+                    1f to Color(0f, 0f, 0f, 0.8f)
+                )
             )
-        )
-        .padding(8.dp),
-      verticalArrangement = Arrangement.Bottom
-  ) {
-    PetCardInfo(title, subtitle)
-  }
+            .padding(8.dp),
+        verticalArrangement = Arrangement.Bottom
+    ) {
+        PetCardInfo(title, subtitle)
+    }
 }
 
 @Composable
 private fun PetCardInfo(title: String, subtitle: String) {
-  CompositionLocalProvider(LocalContentColor provides Color.White) {
-    Text(text = title, style = MaterialTheme.typography.subtitle1)
-    Row(verticalAlignment = Alignment.CenterVertically) {
-      CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-        Icon(
-            painter = painterResource(drawable.ic_pets_24),
-            contentDescription = "Pets Icon",
-            modifier = Modifier
-              .size(24.dp)
-              .padding(2.dp)
-        )
-        Text(text = subtitle, style = MaterialTheme.typography.caption)
-      }
+    CompositionLocalProvider(LocalContentColor provides Color.White) {
+        Text(text = title, style = MaterialTheme.typography.subtitle1)
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                Icon(
+                    painter = painterResource(drawable.ic_pets_24),
+                    contentDescription = "Pets Icon",
+                    modifier = Modifier
+                        .size(24.dp)
+                        .padding(2.dp)
+                )
+                Text(text = subtitle, style = MaterialTheme.typography.caption)
+            }
+        }
     }
-
-  }
 }
