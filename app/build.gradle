@@ -79,9 +79,10 @@ dependencies {
   androidTestImplementation 'androidx.test.ext:junit:1.1.2'
   androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
 
-  //Image Loading
+  //Added libraries
   implementation 'dev.chrisbanes.accompanist:accompanist-coil:0.6.0'
   implementation 'io.coil-kt:coil:1.1.1'
   implementation 'com.jakewharton.timber:timber:4.7.1'
   implementation "androidx.startup:startup-runtime:1.0.0"
+  implementation "androidx.navigation:navigation-compose:1.0.0-alpha08"
 }
