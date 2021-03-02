@@ -30,53 +30,51 @@ import com.example.androiddevchallenge.navigation.MainScreen
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
 class MainActivity : AppCompatActivity() {
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContent {
-      val navController = rememberNavController()
-      val actions = remember(navController) { Actions(navController) }
-      NavHost(navController = navController, startDestination = MainScreen.identifier) {
-        composable(MainScreen.route()) {
-          MyTheme {
-            DogListScreen(onCardClick = actions.openDetails)
-          }
-        }
-        composable(
-            DetailScreen.route()
-        ) { backStackEntry ->
-          requireNotNull(backStackEntry.arguments?.getString(DetailScreen.dogNameArg)).let { argument ->
-            MyTheme {
-              DogDetailScreen(argument) { navController.popBackStack() }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            val navController = rememberNavController()
+            val actions = remember(navController) { Actions(navController) }
+            NavHost(navController = navController, startDestination = MainScreen.identifier) {
+                composable(MainScreen.route()) {
+                    MyTheme {
+                        DogListScreen(onCardClick = actions.openDetails)
+                    }
+                }
+                composable(
+                    DetailScreen.route()
+                ) { backStackEntry ->
+                    requireNotNull(backStackEntry.arguments?.getString(DetailScreen.dogNameArg)).let { argument ->
+                        MyTheme {
+                            DogDetailScreen(argument) { navController.popBackStack() }
+                        }
+                    }
+                }
             }
-          }
         }
-      }
     }
-  }
 }
 
 @Preview
 @Composable
 fun PetCellPreview() {
-  MyTheme {
-    DogDetailScreen("Lucy")
-  }
+    MyTheme {
+        DogDetailScreen("Lucy")
+    }
 }
 
-//@Preview
+// @Preview
 @Composable
 fun LightPreview() {
-  MyTheme {
-    DogListScreen()
-  }
+    MyTheme {
+        DogListScreen()
+    }
 }
 
-//@Preview
+// @Preview
 @Composable
 fun DarkPreview() {
-  MyTheme(darkTheme = true) {
-    DogListScreen()
-  }
+    MyTheme(darkTheme = true) {
+        DogListScreen()
+    }
 }
-
-

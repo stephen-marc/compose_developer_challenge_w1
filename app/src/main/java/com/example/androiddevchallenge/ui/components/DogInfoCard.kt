@@ -1,3 +1,18 @@
+/*
+ * Copyright 2021 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.example.androiddevchallenge.ui.components
 
 import androidx.compose.foundation.layout.Column
@@ -34,51 +49,50 @@ import com.example.androiddevchallenge.ui.theme.MyTheme
     subtitle: String = "",
     byline: String = ""
 ) {
-  var checkedState by remember { mutableStateOf(false) }
+    var checkedState by remember { mutableStateOf(false) }
 
-  Card(
-      modifier = modifier,
-      backgroundColor = MaterialTheme.colors.primary,
-      elevation = 4.dp
-  ) {
-    Row(
-        modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 32.dp, bottom = 16.dp),
-        verticalAlignment = Alignment.CenterVertically
+    Card(
+        modifier = modifier,
+        backgroundColor = MaterialTheme.colors.primary,
+        elevation = 4.dp
     ) {
-      Column(
-          modifier = Modifier
-            .weight(1f)
-      ) {
-        Text(text = title, style = MaterialTheme.typography.h5)
-        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-          Text(text = subtitle, style = MaterialTheme.typography.subtitle1)
-          Text(text = byline, style = MaterialTheme.typography.subtitle1)
+        Row(
+            modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 32.dp, bottom = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+            ) {
+                Text(text = title, style = MaterialTheme.typography.h5)
+                CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                    Text(text = subtitle, style = MaterialTheme.typography.subtitle1)
+                    Text(text = byline, style = MaterialTheme.typography.subtitle1)
+                }
+            }
+            Column(Modifier.wrapContentWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                IconToggleButton(
+                    modifier = Modifier,
+                    checked = checkedState,
+                    onCheckedChange = { checkedState = !checkedState }
+                ) {
+                    Icon(
+                        modifier = Modifier.fillMaxSize(),
+                        painter = painterResource(id = drawable.ic_pets_24),
+                        contentDescription = "Up navigation",
+                        tint = if (checkedState) MaterialTheme.colors.secondary else LocalContentColor.current
+                    )
+                }
+                Text(text = "Tap to adopt", style = MaterialTheme.typography.caption, textAlign = Center)
+            }
         }
-      }
-      Column(Modifier.wrapContentWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-        IconToggleButton(
-            modifier = Modifier,
-            checked = checkedState,
-            onCheckedChange = { checkedState = !checkedState }) {
-          Icon(
-              modifier = Modifier.fillMaxSize(),
-              painter = painterResource(id = drawable.ic_pets_24),
-              contentDescription = "Up navigation",
-              tint = if (checkedState) MaterialTheme.colors.secondary else LocalContentColor.current
-          )
-        }
-        Text(text = "Tap to adopt", style = MaterialTheme.typography.caption, textAlign = Center)
-      }
-
     }
-
-  }
 }
 
 @Preview
 @Composable
 fun DogInfoCardPreview() {
-  MyTheme {
-    DogInfoCard()
-  }
+    MyTheme {
+        DogInfoCard()
+    }
 }

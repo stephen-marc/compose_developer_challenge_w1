@@ -1,3 +1,18 @@
+/*
+ * Copyright 2021 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.example.androiddevchallenge
 
 import androidx.compose.foundation.layout.Box
@@ -34,69 +49,74 @@ import dev.chrisbanes.accompanist.coil.CoilImage
 
 @Composable
 fun DogDetailScreen(dogName: String, onBackPressed: () -> Unit = {}) {
-  val dog by remember { (mutableStateOf(getDogByName(dogName))) }
+    val dog by remember { (mutableStateOf(getDogByName(dogName))) }
 
-  Scaffold(topBar = {
-    TopAppBar(title = {
-      Text(text = "Dog Details")
-    }, navigationIcon = {
-      IconButton(onClick = onBackPressed) {
-        Icon(
-            painter = painterResource(id = drawable.ic_baseline_arrow_back_24),
-            contentDescription = "Up navigation"
-        )
-      }
-    })
-  }) {
-    ConstraintLayout(
-        modifier = Modifier
-          .fillMaxHeight()
-          .fillMaxWidth()
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(text = "Dog Details")
+                },
+                navigationIcon = {
+                    IconButton(onClick = onBackPressed) {
+                        Icon(
+                            painter = painterResource(id = drawable.ic_baseline_arrow_back_24),
+                            contentDescription = "Up navigation"
+                        )
+                    }
+                }
+            )
+        }
     ) {
-      val (headerImage, card, body) = createRefs()
+        ConstraintLayout(
+            modifier = Modifier
+                .fillMaxHeight()
+                .fillMaxWidth()
+        ) {
+            val (headerImage, card, body) = createRefs()
 
-      HeaderImage(
-          modifier = Modifier
-            .constrainAs(headerImage) {
-              top.linkTo(parent.top)
-              start.linkTo(parent.start)
-              end.linkTo(parent.end)
-            },
-          imageUrl = dog.imageUrl
-      )
+            HeaderImage(
+                modifier = Modifier
+                    .constrainAs(headerImage) {
+                        top.linkTo(parent.top)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                    },
+                imageUrl = dog.imageUrl
+            )
 
-      val barrier = createBottomBarrier(headerImage, margin = 16.dp)
+            val barrier = createBottomBarrier(headerImage, margin = 16.dp)
 
-      StoryContentBox(
-          modifier = Modifier
-            .constrainAs(body) {
-              top.linkTo(headerImage.bottom)
-              bottom.linkTo(parent.bottom)
-              start.linkTo(parent.start)
-              end.linkTo(parent.end)
-              height = Dimension.fillToConstraints
-              width = Dimension.fillToConstraints
-            },
-          dogName = dogName
-      )
+            StoryContentBox(
+                modifier = Modifier
+                    .constrainAs(body) {
+                        top.linkTo(headerImage.bottom)
+                        bottom.linkTo(parent.bottom)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        height = Dimension.fillToConstraints
+                        width = Dimension.fillToConstraints
+                    },
+                dogName = dogName
+            )
 
-      DogInfoCard(
-          modifier = Modifier
-            .constrainAs(card) {
-              top.linkTo(barrier)
-              bottom.linkTo(barrier)
-              start.linkTo(parent.start)
-              end.linkTo(parent.end)
-              height = Dimension.preferredWrapContent
-              width = Dimension.fillToConstraints
-            }
-            .padding(horizontal = 32.dp),
-          title = dog.name,
-          subtitle = dog.breed,
-          byline = dog.ageAndSexString
-      )
+            DogInfoCard(
+                modifier = Modifier
+                    .constrainAs(card) {
+                        top.linkTo(barrier)
+                        bottom.linkTo(barrier)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        height = Dimension.preferredWrapContent
+                        width = Dimension.fillToConstraints
+                    }
+                    .padding(horizontal = 32.dp),
+                title = dog.name,
+                subtitle = dog.breed,
+                byline = dog.ageAndSexString
+            )
+        }
     }
-  }
 }
 
 @Composable
@@ -104,18 +124,17 @@ private fun HeaderImage(
     modifier: Modifier = Modifier,
     imageUrl: String = ""
 ) {
-  Box(
-      modifier = modifier.aspectRatio(1.3f),
-      contentAlignment = Alignment.BottomStart
-  ) {
-    CoilImage(
-        data = imageUrl,
-        contentDescription = "Image of a dog",
-        contentScale = ContentScale.Crop,
-        fadeIn = true,
-    )
-  }
-
+    Box(
+        modifier = modifier.aspectRatio(1.3f),
+        contentAlignment = Alignment.BottomStart
+    ) {
+        CoilImage(
+            data = imageUrl,
+            contentDescription = "Image of a dog",
+            contentScale = ContentScale.Crop,
+            fadeIn = true,
+        )
+    }
 }
 
 @Composable
@@ -123,31 +142,29 @@ private fun StoryContentBox(
     modifier: Modifier = Modifier,
     dogName: String
 ) {
-  val scrollState = rememberScrollState()
-  Box(
-      modifier = modifier
-        .verticalScroll(scrollState)
-  ) {
-    Column(
-        modifier = Modifier.padding(
-            top = 96.dp,
-            start = 16.dp,
-            end = 16.dp,
-            bottom = 40.dp
-        )
+    val scrollState = rememberScrollState()
+    Box(
+        modifier = modifier
+            .verticalScroll(scrollState)
     ) {
-      Text(
-          modifier = Modifier.padding(bottom = 8.dp),
-          text = "${dogName}'s Story",
-          style = MaterialTheme.typography.h5
-      )
-      Text(
-          text = stringResource(id = string.dog_description_long),
-          style = MaterialTheme.typography.body1,
-          lineHeight = MaterialTheme.typography.body1.fontSize * 1.5
-      )
+        Column(
+            modifier = Modifier.padding(
+                top = 96.dp,
+                start = 16.dp,
+                end = 16.dp,
+                bottom = 40.dp
+            )
+        ) {
+            Text(
+                modifier = Modifier.padding(bottom = 8.dp),
+                text = "$dogName's Story",
+                style = MaterialTheme.typography.h5
+            )
+            Text(
+                text = stringResource(id = string.dog_description_long),
+                style = MaterialTheme.typography.body1,
+                lineHeight = MaterialTheme.typography.body1.fontSize * 1.5
+            )
+        }
     }
-  }
 }
-
-

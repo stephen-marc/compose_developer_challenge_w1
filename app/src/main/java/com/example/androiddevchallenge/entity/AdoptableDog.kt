@@ -25,9 +25,9 @@ data class AdoptableDog(
     val imageUrl: String
 ) {
 
-  val ageAndSexString = " $ageString ● $sex"
+    val ageAndSexString = " $ageString ● $sex"
 }
 
 fun getDogByName(dogName: String): AdoptableDog {
-  return Sample.dogs.find { it.name == dogName } ?: throw NoSuchElementException()
+    return Sample.dogs.find { it.name == dogName } ?: throw NoSuchElementException()
 }

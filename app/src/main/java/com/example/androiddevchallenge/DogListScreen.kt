@@ -1,3 +1,18 @@
+/*
+ * Copyright 2021 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.example.androiddevchallenge
 
 import androidx.compose.animation.AnimatedVisibility
@@ -40,74 +55,74 @@ import com.example.androiddevchallenge.ui.sample.Sample
 @OptIn(ExperimentalAnimationApi::class, ExperimentalFoundationApi::class)
 @Composable
 fun DogListScreen(onCardClick: (String) -> Unit = { /*TODO*/ }) {
-  val dogsToDisplay by remember { mutableStateOf(Sample.dogs) }
+    val dogsToDisplay by remember { mutableStateOf(Sample.dogs) }
 
-  Scaffold {
-    Surface(color = MaterialTheme.colors.background) {
-      val gridState = rememberLazyListState()
-      val alpha = listScrollStateToAlpha(gridState)
-      var height by remember { mutableStateOf(Dp.Unspecified) }
+    Scaffold {
+        Surface(color = MaterialTheme.colors.background) {
+            val gridState = rememberLazyListState()
+            val alpha = listScrollStateToAlpha(gridState)
+            var height by remember { mutableStateOf(Dp.Unspecified) }
 
-      MainHeader(
-          modifier = Modifier
-            .onGloballyPositioned {
-              height = with(LocalDensity.current) { it.size.height / density }.dp
+            MainHeader(
+                modifier = Modifier
+                    .onGloballyPositioned {
+                        height = with(LocalDensity.current) { it.size.height / density }.dp
+                    }
+                    .alpha(alpha)
+            )
+
+            AnimatedVisibility(
+                visible = height != Dp.Unspecified,
+                enter = fadeIn(),
+                initiallyVisible = false
+            ) {
+                PetCardGrid(
+                    gridState = gridState,
+                    firstRowOffset = height,
+                    items = dogsToDisplay,
+                    onCardClick = onCardClick
+                )
             }
-            .alpha(alpha)
-      )
-
-      AnimatedVisibility(
-          visible = height != Dp.Unspecified,
-          enter = fadeIn(),
-          initiallyVisible = false
-      ) {
-        PetCardGrid(
-            gridState = gridState,
-            firstRowOffset = height,
-            items = dogsToDisplay,
-            onCardClick = onCardClick
-        )
-      }
+        }
     }
-  }
 }
 
 @Composable
 private fun listScrollStateToAlpha(gridState: LazyListState) =
-  remember(gridState.firstVisibleItemScrollOffset, gridState.firstVisibleItemIndex) {
-    if (gridState.firstVisibleItemIndex > 0) {
-      0f
-    } else {
-      1f - (gridState.firstVisibleItemScrollOffset / 100f) / 2
+    remember(gridState.firstVisibleItemScrollOffset, gridState.firstVisibleItemIndex) {
+        if (gridState.firstVisibleItemIndex > 0) {
+            0f
+        } else {
+            1f - (gridState.firstVisibleItemScrollOffset / 100f) / 2
+        }
     }
-  }
 
 @Composable
 private fun MainHeader(
     modifier: Modifier = Modifier
 ) {
-  Surface(
-      modifier = modifier,
-      color = MaterialTheme.colors.primary
-  ) {
-    Column(
-        modifier
-          .fillMaxWidth()
-          .padding(start = 8.dp)
+    Surface(
+        modifier = modifier,
+        color = MaterialTheme.colors.primary
     ) {
-      Spacer(modifier = Modifier.height(8.dp))
-      Text(
-          text = stringResource(string.mainlist_app_title), style = MaterialTheme.typography.h4,
-      )
-      CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-        Text(
-            text = stringResource(string.main_list_app_subtitle),
-            style = MaterialTheme.typography.subtitle2,
-        )
-      }
-      Spacer(modifier = Modifier.height(8.dp))
+        Column(
+            modifier
+                .fillMaxWidth()
+                .padding(start = 8.dp)
+        ) {
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = stringResource(string.mainlist_app_title), style = MaterialTheme.typography.h4,
+            )
+            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                Text(
+                    text = stringResource(string.main_list_app_subtitle),
+                    style = MaterialTheme.typography.subtitle2,
+                )
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+        }
     }
-  }
 }
 
 @OptIn(ExperimentalAnimationApi::class, ExperimentalFoundationApi::class)
@@ -118,23 +133,22 @@ private fun PetCardGrid(
     items: List<AdoptableDog>,
     onCardClick: (String) -> Unit
 ) {
-  LazyVerticalGrid(state = gridState, cells = Fixed(2)) {
-    items(count = items.size) { index ->
-      val dog = items[index]
-      val modifier = if (index < 2) {
-        Modifier.padding(top = firstRowOffset + 8.dp)
-      } else {
-        Modifier
-      }
-      DogImageCard(
-          modifier = modifier,
-          imageData = dog.imageUrl,
-          title = dog.name,
-          subtitle = dog.breed,
-          byline = dog.ageAndSexString,
-          onClick = { onCardClick(dog.name) }
-      )
+    LazyVerticalGrid(state = gridState, cells = Fixed(2)) {
+        items(count = items.size) { index ->
+            val dog = items[index]
+            val modifier = if (index < 2) {
+                Modifier.padding(top = firstRowOffset + 8.dp)
+            } else {
+                Modifier
+            }
+            DogImageCard(
+                modifier = modifier,
+                imageData = dog.imageUrl,
+                title = dog.name,
+                subtitle = dog.breed,
+                byline = dog.ageAndSexString,
+                onClick = { onCardClick(dog.name) }
+            )
+        }
     }
-  }
 }
-

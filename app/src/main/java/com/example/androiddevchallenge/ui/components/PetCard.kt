@@ -55,69 +55,68 @@ fun DogImageCard(
     byline: String,
     onClick: () -> Unit = {}
 ) {
-  val imageDataRemember = remember { imageData }
-  Card(
-      modifier = modifier
-        .padding(8.dp)
-        .aspectRatio(1f)
-        .drawColoredShadow(MaterialTheme.colors.primary)
-        .clickable { onClick() },
-      backgroundColor = MaterialTheme.colors.primary,
-      shape = MaterialTheme.shapes.medium, elevation = 0.dp,
-  ) {
-    Box(contentAlignment = Alignment.BottomStart) {
-      CoilImage(
-          data = imageDataRemember,
-          contentDescription = "",
-          contentScale = ContentScale.Crop,
-          fadeIn = true,
-      )
-      DogCardForeground(title = title, subtitle = subtitle, byline = byline)
+    val imageDataRemember = remember { imageData }
+    Card(
+        modifier = modifier
+            .padding(8.dp)
+            .aspectRatio(1f)
+            .drawColoredShadow(MaterialTheme.colors.primary)
+            .clickable { onClick() },
+        backgroundColor = MaterialTheme.colors.primary,
+        shape = MaterialTheme.shapes.medium, elevation = 0.dp,
+    ) {
+        Box(contentAlignment = Alignment.BottomStart) {
+            CoilImage(
+                data = imageDataRemember,
+                contentDescription = "",
+                contentScale = ContentScale.Crop,
+                fadeIn = true,
+            )
+            DogCardForeground(title = title, subtitle = subtitle, byline = byline)
+        }
     }
-  }
 }
 
 @Composable
 private fun DogCardForeground(title: String, subtitle: String, byline: String) {
-  Column(
-      modifier = Modifier
-        .fillMaxSize()
-        .background(
-            Brush.verticalGradient(
-                0f to Color.Transparent,
-                0.5f to Color.Transparent,
-                1f to Color(0f, 0f, 0f, 0.8f)
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                Brush.verticalGradient(
+                    0f to Color.Transparent,
+                    0.5f to Color.Transparent,
+                    1f to Color(0f, 0f, 0f, 0.8f)
+                )
             )
-        )
-        .padding(8.dp),
-      verticalArrangement = Arrangement.Bottom
-  ) {
-    CompositionLocalProvider(LocalContentColor provides Color.White) {
-      DogInfoBlock(title = title, subtitle = subtitle, byline = byline)
+            .padding(8.dp),
+        verticalArrangement = Arrangement.Bottom
+    ) {
+        CompositionLocalProvider(LocalContentColor provides Color.White) {
+            DogInfoBlock(title = title, subtitle = subtitle, byline = byline)
+        }
     }
-  }
 }
 
 @Composable
 fun DogInfoBlock(title: String, subtitle: String, byline: String) {
-  Column(modifier = Modifier.padding(8.dp)) {
-    Text(text = title, style = MaterialTheme.typography.subtitle1)
-    CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-      Text(text = subtitle, style = MaterialTheme.typography.caption)
-      Text(text = byline, style = MaterialTheme.typography.caption)
+    Column(modifier = Modifier.padding(8.dp)) {
+        Text(text = title, style = MaterialTheme.typography.subtitle1)
+        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+            Text(text = subtitle, style = MaterialTheme.typography.caption)
+            Text(text = byline, style = MaterialTheme.typography.caption)
+        }
     }
-  }
 }
 
 @Preview
 @Composable
 fun PreviewPetImageCard() {
-  MyTheme() {
-    DogImageCard(
-        title = stringResource(id = R.string.internal_lorem_ipsum),
-        subtitle = stringResource(id = R.string.internal_lorem_ipsum),
-        byline = stringResource(id = R.string.internal_lorem_ipsum)
-    )
-  }
+    MyTheme() {
+        DogImageCard(
+            title = stringResource(id = R.string.internal_lorem_ipsum),
+            subtitle = stringResource(id = R.string.internal_lorem_ipsum),
+            byline = stringResource(id = R.string.internal_lorem_ipsum)
+        )
+    }
 }
-
