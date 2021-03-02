@@ -33,7 +33,7 @@ import com.example.androiddevchallenge.ui.components.DogInfoCard
 import dev.chrisbanes.accompanist.coil.CoilImage
 
 @Composable
-fun DogDetailScreen(dogName: String, onBackPressed: () -> Unit = { /*TODO*/ }) {
+fun DogDetailScreen(dogName: String, onBackPressed: () -> Unit = {}) {
   val dog by remember { (mutableStateOf(getDogByName(dogName))) }
 
   Scaffold(topBar = {
@@ -54,7 +54,7 @@ fun DogDetailScreen(dogName: String, onBackPressed: () -> Unit = { /*TODO*/ }) {
           .fillMaxWidth()
     ) {
       val (headerImage, card, body) = createRefs()
-      
+
       HeaderImage(
           modifier = Modifier
             .constrainAs(headerImage) {
@@ -110,7 +110,7 @@ private fun HeaderImage(
   ) {
     CoilImage(
         data = imageUrl,
-        contentDescription = "",
+        contentDescription = "Image of a dog",
         contentScale = ContentScale.Crop,
         fadeIn = true,
     )

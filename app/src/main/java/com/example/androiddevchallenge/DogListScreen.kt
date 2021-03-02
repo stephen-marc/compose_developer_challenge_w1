@@ -40,7 +40,7 @@ import com.example.androiddevchallenge.ui.sample.Sample
 @OptIn(ExperimentalAnimationApi::class, ExperimentalFoundationApi::class)
 @Composable
 fun DogListScreen(onCardClick: (String) -> Unit = { /*TODO*/ }) {
-  val dogsToDisplay = Sample.dogs
+  val dogsToDisplay by remember { mutableStateOf(Sample.dogs) }
 
   Scaffold {
     Surface(color = MaterialTheme.colors.background) {

@@ -98,6 +98,17 @@ private fun DogCardForeground(title: String, subtitle: String, byline: String) {
   }
 }
 
+@Composable
+fun DogInfoBlock(title: String, subtitle: String, byline: String) {
+  Column(modifier = Modifier.padding(8.dp)) {
+    Text(text = title, style = MaterialTheme.typography.subtitle1)
+    CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+      Text(text = subtitle, style = MaterialTheme.typography.caption)
+      Text(text = byline, style = MaterialTheme.typography.caption)
+    }
+  }
+}
+
 @Preview
 @Composable
 fun PreviewPetImageCard() {
@@ -110,13 +121,3 @@ fun PreviewPetImageCard() {
   }
 }
 
-@Composable
-fun DogInfoBlock(title: String, subtitle: String, byline: String) {
-  Column(modifier = Modifier.padding(8.dp)) {
-    Text(text = title, style = MaterialTheme.typography.subtitle1)
-    CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-      Text(text = subtitle, style = MaterialTheme.typography.caption)
-      Text(text = byline, style = MaterialTheme.typography.caption)
-    }
-  }
-}
