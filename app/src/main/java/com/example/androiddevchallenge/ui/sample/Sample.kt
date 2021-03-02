@@ -23,7 +23,7 @@ class Sample {
         AdoptableDog(
             name = "Bailey",
             ageString = "6 months",
-            breed = "Terrier",
+            breed = "Silky Terrier",
             sex = "male",
             imageUrl = "https://images.dog.ceo/breeds/terrier-silky/n02097658_3693.jpg"
         ),
@@ -38,7 +38,7 @@ class Sample {
             name = "Chloe",
             ageString = "18 months",
             sex = "female",
-            breed = "Elkhound",
+            breed = "Norwegian Elkhound",
             imageUrl = "https://images.dog.ceo/breeds/elkhound-norwegian/n02091467_7407.jpg"
         ),
         AdoptableDog(
@@ -66,7 +66,7 @@ class Sample {
             name = "Maggie",
             ageString = "2.5 years",
             sex = "female",
-            breed = "Spaniel",
+            breed = "Welsh Spaniel",
             imageUrl = "https://images.dog.ceo/breeds/spaniel-welsh/n02102177_1999.jpg"
         ),
     )

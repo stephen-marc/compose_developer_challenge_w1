@@ -34,7 +34,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.R.string
 import com.example.androiddevchallenge.entity.AdoptableDog
-import com.example.androiddevchallenge.ui.components.PetCard
+import com.example.androiddevchallenge.ui.components.DogImageCard
 import com.example.androiddevchallenge.ui.sample.Sample
 
 @OptIn(ExperimentalAnimationApi::class, ExperimentalFoundationApi::class)
@@ -126,12 +126,12 @@ private fun PetCardGrid(
       } else {
         Modifier
       }
-      PetCard(
+      DogImageCard(
           modifier = modifier,
           imageData = dog.imageUrl,
           title = dog.name,
           subtitle = dog.breed,
-          byline = "${dog.ageString} ● ${dog.sex}",
+          byline = dog.ageAndSexString,
           onClick = { onCardClick(dog.name) }
       )
     }

@@ -12,7 +12,7 @@ object MainScreen : Screen("main_screen") {
 }
 
 object DetailScreen : Screen("detail_screen") {
-  val dogNameArg = "dogName"
+  const val dogNameArg = "dogName"
 
   override fun route() = "$identifier/{$dogNameArg}"
 }

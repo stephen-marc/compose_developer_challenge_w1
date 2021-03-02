@@ -24,6 +24,8 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Card
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.LocalContentColor
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -35,18 +37,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.R.drawable
 import com.example.androiddevchallenge.ui.drawColoredShadow
+import com.example.androiddevchallenge.ui.theme.MyTheme
 import dev.chrisbanes.accompanist.coil.CoilImage
 
 @Composable
-fun PetCard(
+fun DogImageCard(
     modifier: Modifier = Modifier,
     imageData: Any = drawable.core_img_placeholder,
-    title: String = "Lorem Ipsum",
-    subtitle: String = "Lorem Ipsum",
-    byline: String = "Lorem Ipsum",
+    title: String,
+    subtitle: String,
+    byline: String,
     onClick: () -> Unit = {}
 ) {
   val imageDataRemember = remember { imageData }
@@ -66,13 +72,13 @@ fun PetCard(
           contentScale = ContentScale.Crop,
           fadeIn = true,
       )
-      PetCardForeground(title = title, subtitle = subtitle, byline = byline)
+      DogCardForeground(title = title, subtitle = subtitle, byline = byline)
     }
   }
 }
 
 @Composable
-private fun PetCardForeground(title: String, subtitle: String, byline: String) {
+private fun DogCardForeground(title: String, subtitle: String, byline: String) {
   Column(
       modifier = Modifier
         .fillMaxSize()
@@ -87,11 +93,30 @@ private fun PetCardForeground(title: String, subtitle: String, byline: String) {
       verticalArrangement = Arrangement.Bottom
   ) {
     CompositionLocalProvider(LocalContentColor provides Color.White) {
-      Text(text = title, style = MaterialTheme.typography.subtitle1)
+      DogInfoBlock(title = title, subtitle = subtitle, byline = byline)
+    }
+  }
+}
+
+@Preview
+@Composable
+fun PreviewPetImageCard() {
+  MyTheme() {
+    DogImageCard(
+        title = stringResource(id = R.string.internal_lorem_ipsum),
+        subtitle = stringResource(id = R.string.internal_lorem_ipsum),
+        byline = stringResource(id = R.string.internal_lorem_ipsum)
+    )
+  }
+}
+
+@Composable
+fun DogInfoBlock(title: String, subtitle: String, byline: String) {
+  Column(modifier = Modifier.padding(8.dp)) {
+    Text(text = title, style = MaterialTheme.typography.subtitle1)
+    CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
       Text(text = subtitle, style = MaterialTheme.typography.caption)
       Text(text = byline, style = MaterialTheme.typography.caption)
     }
   }
 }
-
-
