@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                 ) { backStackEntry ->
                     requireNotNull(backStackEntry.arguments?.getString(DetailScreen.dogNameArg)).let { argument ->
                         MyTheme {
-                            DogDetailScreen(argument) { navController.popBackStack() }
+                            DogDetailScreen(argument) { navController.navigateUp() }
                         }
                     }
                 }

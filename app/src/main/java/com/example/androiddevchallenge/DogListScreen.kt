@@ -15,9 +15,7 @@
  */
 package com.example.androiddevchallenge
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -71,18 +69,12 @@ fun DogListScreen(onCardClick: (String) -> Unit = { /*TODO*/ }) {
                     .alpha(alpha)
             )
 
-            AnimatedVisibility(
-                visible = height != Dp.Unspecified,
-                enter = fadeIn(),
-                initiallyVisible = false
-            ) {
-                PetCardGrid(
-                    gridState = gridState,
-                    firstRowOffset = height,
-                    items = dogsToDisplay,
-                    onCardClick = onCardClick
-                )
-            }
+            PetCardGrid(
+                gridState = gridState,
+                firstRowOffset = height,
+                items = dogsToDisplay,
+                onCardClick = onCardClick
+            )
         }
     }
 }
@@ -137,7 +129,7 @@ private fun PetCardGrid(
         items(count = items.size) { index ->
             val dog = items[index]
             val modifier = if (index < 2) {
-                Modifier.padding(top = firstRowOffset + 8.dp)
+                Modifier.padding(top = if (firstRowOffset == Dp.Unspecified) 0.dp else firstRowOffset + 8.dp)
             } else {
                 Modifier
             }
