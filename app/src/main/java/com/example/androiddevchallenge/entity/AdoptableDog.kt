@@ -15,15 +15,16 @@
  */
 package com.example.androiddevchallenge.entity
 
-import java.util.UUID
+import com.example.androiddevchallenge.ui.sample.Sample
 
 data class AdoptableDog(
-    val id: String = UUID
-        .randomUUID()
-        .toString(),
     val name: String,
+    val breed: String,
     val ageString: String,
-    val sex: String
+    val sex: String,
+    val imageUrl: String
 )
 
-const val BASE_URL_DOG_IMAGES = "https://placedog.net/1000?random&"
+fun getDogByName(dogName: String): AdoptableDog {
+  return Sample.dogs.find { it.name == dogName } ?: throw NoSuchElementException()
+}

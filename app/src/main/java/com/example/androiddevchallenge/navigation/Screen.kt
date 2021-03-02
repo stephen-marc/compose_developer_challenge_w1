@@ -12,13 +12,13 @@ object MainScreen : Screen("main_screen") {
 }
 
 object DetailScreen : Screen("detail_screen") {
-  val dogIdArgs = "dogId"
+  val dogNameArg = "dogName"
 
-  override fun route() = "$identifier/{$dogIdArgs}"
+  override fun route() = "$identifier/{$dogNameArg}"
 }
 
 class Actions(navController: NavHostController) {
-  val openDetails: (String) -> Unit = { dogId ->
-    navController.navigate("${DetailScreen.identifier}/$dogId")
+  val openDetails: (String) -> Unit = { dogName ->
+    navController.navigate("${DetailScreen.identifier}/$dogName")
   }
 }

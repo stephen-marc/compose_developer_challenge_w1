@@ -18,15 +18,57 @@ package com.example.androiddevchallenge.ui.sample
 import com.example.androiddevchallenge.entity.AdoptableDog
 
 class Sample {
-    companion object {
-        val dogs: List<AdoptableDog> = listOf(
-            AdoptableDog(name = "Bailey", ageString = "6 months", sex = "male"),
-            AdoptableDog(name = "Lucy", ageString = "2 years", sex = "female"),
-            AdoptableDog(name = "Chloe", ageString = "18 months", sex = "female"),
-            AdoptableDog(name = "Jake", ageString = "6 years", sex = "male"),
-            AdoptableDog(name = "Coco", ageString = "9 year", sex = "female"),
-            AdoptableDog(name = "Rocky", ageString = "3 years", sex = "male"),
-            AdoptableDog(name = "Lucy", ageString = "2.5 years", sex = "female"),
-        )
-    }
+  companion object {
+    val dogs: List<AdoptableDog> = listOf(
+        AdoptableDog(
+            name = "Bailey",
+            ageString = "6 months",
+            breed = "Terrier",
+            sex = "male",
+            imageUrl = "https://images.dog.ceo/breeds/terrier-silky/n02097658_3693.jpg"
+        ),
+        AdoptableDog(
+            name = "Lucy",
+            ageString = "2 years",
+            sex = "female",
+            breed = "Eskimo",
+            imageUrl = "https://images.dog.ceo/breeds/eskimo/n02109961_18527.jpg"
+        ),
+        AdoptableDog(
+            name = "Chloe",
+            ageString = "18 months",
+            sex = "female",
+            breed = "Elkhound",
+            imageUrl = "https://images.dog.ceo/breeds/elkhound-norwegian/n02091467_7407.jpg"
+        ),
+        AdoptableDog(
+            name = "Jake",
+            ageString = "6 years",
+            sex = "male",
+            breed = "Pomeranian",
+            imageUrl = "https://images.dog.ceo/breeds/pomeranian/n02112018_5317.jpg"
+        ),
+        AdoptableDog(
+            name = "Coco",
+            ageString = "9 year",
+            sex = "female",
+            breed = "Samoyed",
+            imageUrl = "https://images.dog.ceo/breeds/samoyed/n02111889_6512.jpg"
+        ),
+        AdoptableDog(
+            name = "Rocky",
+            ageString = "3 years",
+            sex = "male",
+            breed = "Vizsla",
+            imageUrl = "https://images.dog.ceo/breeds/vizsla/n02100583_4439.jpg"
+        ),
+        AdoptableDog(
+            name = "Maggie",
+            ageString = "2.5 years",
+            sex = "female",
+            breed = "Spaniel",
+            imageUrl = "https://images.dog.ceo/breeds/spaniel-welsh/n02102177_1999.jpg"
+        ),
+    )
+  }
 }

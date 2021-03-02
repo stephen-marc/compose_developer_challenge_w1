@@ -34,7 +34,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.R.string
 import com.example.androiddevchallenge.entity.AdoptableDog
-import com.example.androiddevchallenge.entity.BASE_URL_DOG_IMAGES
 import com.example.androiddevchallenge.ui.components.PetCard
 import com.example.androiddevchallenge.ui.sample.Sample
 
@@ -129,10 +128,11 @@ private fun PetCardGrid(
       }
       PetCard(
           modifier = modifier,
-          imageData = "$BASE_URL_DOG_IMAGES${dog.id}",
+          imageData = dog.imageUrl,
           title = dog.name,
-          subtitle = "${dog.ageString} - ${dog.sex}",
-          onClick = { onCardClick(dog.id) }
+          subtitle = dog.breed,
+          byline = "${dog.ageString} ● ${dog.sex}",
+          onClick = { onCardClick(dog.name) }
       )
     }
   }
